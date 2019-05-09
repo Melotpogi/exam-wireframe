@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <title>Betica Shop</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Maeluthe Nealega">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger">BETICA SHOP</a>
+      </div>
+    </nav>
+
+    
+
+    <div id="betica_wireframe">
+      
+    </div>
+
+    <div id="content"></div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      var info = {
+        "items": {
+          "c001": {
+            "parent": "c000",
+            "title": "Phones"
+          },
+          "c002": {
+            "parent": "c000",
+            "title": "Laptops"
+          },
+          "c003": {
+            "parent": "c000",
+            "title": "Accessories"
+          },
+          "c004": {
+            "parent": "c100",
+            "title": "Cameras"
+          },
+          "p001": {
+            "parent": "c001",
+            "manufacturer": "Apple",
+            "title": "iPhone 10",
+            "price": 499,
+            "releaseDate": "2018-04-23T18:25:43.511Z"
+          },
+          "p002": {
+            "parent": "c002",
+            "manufacturer": "Apple",
+            "title": "Macbook Pro 2017",
+            "price": 1999,
+            "releaseDate": "2017-04-23T18:25:43.511Z"
+          },
+          "p003": {
+            "parent": "c002",
+            "manufacturer": "Dell",
+            "title": "XPS 13",
+            "price": 1399,
+            "releaseDate": "2017-04-23T18:25:43.511Z"
+          },
+          "p004": {
+            "parent": "c001",
+            "manufacturer": "Samsung",
+            "title": "Samsung Galaxy S10",
+            "price": 399,
+            "releaseDate": "2017-04-23T18:25:43.511Z"
+          },
+          "p005": {
+            "parent": "c003",
+            "manufacturer": "Apple",
+            "title": "Apple Charger 12W",
+            "price": 99,
+            "releaseDate": "2016-12-23T18:25:43.511Z"
+          },
+          "p006": {
+            "parent": "c003",
+            "manufacturer": "Samsung",
+            "title": "Samsung Charger 12W",
+            "price": 89,
+            "releaseDate": "2017-04-23T18:25:43.511Z"  
+          },
+          "p007": {
+            "parent": "c005",
+            "manufacturer": "Samsung",
+            "title": "Samsung VR Headset",
+            "price": 699,
+            "releaseDate": "2018-04-23T18:25:43.511Z"
+          }
+        }
+      };
+      var convertDate = function(dateObject) { 
+        var d = new Date(dateObject);
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var date = day + "/" + month + "/" + year;
+        var year = year;
+
+        return year;
+      };
+      $(document).ready(function(){
+        var group = [];
+        var items = info.items;
+        var title = {};
+        var count = 0;
+        var titleHtml = "";
+        $.each(info.items, function(i, item){
+            if(count <= 3){
+              title[count] = item;
+              title[count].id = i;
+            }
+            count++;
+        });
+        for(i=0; i<=3; i++){
+          var parent = title[i].id;
+          titleHtml += '<div> \
+                        <h2 class="text-center text-uppercase text-secondary mb-0">'+title[i].title+'</h2>';
+
+          for(key in info.items){
+            $(info.items).each(function(a, item){
+                titleHtml += '<div class="col-md-12 col-lg-12">';
+
+              if(parent == item[key].parent){
+                titleHtml += '<div class="panel panel-success"> \
+                              <div class="panel-heading"> \
+                                <h3 class="panel-title"><center>'+item[key].title+'</center></h3> \
+                              </div> \
+                              <div class="panel-body"> \
+                                <p>Manufactured by '+item[key].manufacturer+', to be released in '+convertDate(item[key].releaseDate)+'</p>\
+                                <center><button class="btn btn-success btn-lg">$'+item[key].price+'</button></center> \
+                              </div>';
+              }
+              titleHtml += '</div></div>';
+
+            });
+
+          }
+          titleHtml += '</div><br><br>';
+
+        }
+        $("#betica_wireframe").append(titleHtml);
+
+      });
+       
+      // enter your code here
+      // render the items in the info using native Javascript or jQuery
+
+    </script>
+
+</body>
+</html>
